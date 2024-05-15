@@ -4,6 +4,7 @@ import json
 def guess_door_opening(video_filename):
     """ Simulate guessing the frame for door opening. """
     # Hypothetical function: replace with actual logic.
+    
     return 100  # Placeholder value, should be replaced with real computation based on video analysis.
 
 def guess_door_closing(video_filename):
