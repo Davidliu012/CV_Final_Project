@@ -1,0 +1,64 @@
+{
+    "videos": [
+        {
+            "video_filename": "01.mp4",
+            "annotations": [
+                {
+                    "object": "Door",
+                    "states": [
+                        {
+                            "state_id": 1,
+                            "description": "Opening",
+                            "guessed_frame": 100
+                        },
+                        {
+                            "state_id": 2,
+                            "description": "Closing",
+                            "guessed_frame": 200
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "video_filename": "03.mp4",
+            "annotations": [
+                {
+                    "object": "Door",
+                    "states": [
+                        {
+                            "state_id": 1,
+                            "description": "Opening",
+                            "guessed_frame": 100
+                        },
+                        {
+                            "state_id": 2,
+                            "description": "Closing",
+                            "guessed_frame": 200
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "video_filename": "02.mp4",
+            "annotations": [
+                {
+                    "object": "Door",
+                    "states": [
+                        {
+                            "state_id": 1,
+                            "description": "Opening",
+                            "guessed_frame": 100
+                        },
+                        {
+                            "state_id": 2,
+                            "description": "Closing",
+                            "guessed_frame": 200
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
