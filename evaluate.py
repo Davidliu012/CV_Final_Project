@@ -54,8 +54,8 @@ def evaluate_algorithm(output_json, ground_truth_json):
     return final_score
 
 # Example usage
-output_json_filename = 'algorithm_output.json'
-ground_truth_json_filename = 'ground_truth_annotations.json'
+output_json_filename = 'output/algorithm_output.json'
+ground_truth_json_filename = 'output/ground_truth_annotations.json'
 
 final_score = evaluate_algorithm(output_json_filename, ground_truth_json_filename)
 print(f"Final Score: {final_score:.2f} points")

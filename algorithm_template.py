@@ -47,7 +47,7 @@ def generate_json(output_filename, videos_info):
 
 def main():
     directory = "./"  # Specify the directory to scan
-    output_filename = "algorithm_output.json"  # Output JSON file name
+    output_filename = "output/algorithm_output.json"  # Output JSON file name
     videos_info = scan_videos(directory)
     generate_json(output_filename, videos_info)
     print(f"Generated JSON file '{output_filename}' with video annotations.")
