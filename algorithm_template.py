@@ -1,10 +1,11 @@
 import os
 import json
+import cv2
+import numpy as np
 
 def guess_door_opening(video_filename):
     """ Simulate guessing the frame for door opening. """
     # Hypothetical function: replace with actual logic.
-    
     return 100  # Placeholder value, should be replaced with real computation based on video analysis.
 
 def guess_door_closing(video_filename):
@@ -27,12 +28,12 @@ def scan_videos(directory):
                         {
                             "state_id": 1,
                             "description": "Opening",
-                            "guessed_frame": guess_door_opening(video_file)  # Guessing frame using function.
+                            "guessed_frame": guess_door_opening(directory + '/' + video_file)  # Guessing frame using function.
                         },
                         {
                             "state_id": 2,
                             "description": "Closing",
-                            "guessed_frame": guess_door_closing(video_file)  # Guessing frame using function.
+                            "guessed_frame": guess_door_closing(directory + '/' + video_file)  # Guessing frame using function.
                         }
                     ]
                 }
@@ -47,7 +48,7 @@ def generate_json(output_filename, videos_info):
         json.dump({"videos": videos_info}, file, indent=4)
 
 def main():
-    directory = "./"  # Specify the directory to scan
+    directory = "./Sample Videos"  # Specify the directory to scan
     output_filename = "output/algorithm_output.json"  # Output JSON file name
     videos_info = scan_videos(directory)
     generate_json(output_filename, videos_info)
