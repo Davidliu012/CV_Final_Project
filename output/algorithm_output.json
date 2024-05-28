@@ -1,26 +1,6 @@
 {
     "videos": [
         {
-            "video_filename": "01.mp4",
-            "annotations": [
-                {
-                    "object": "Door",
-                    "states": [
-                        {
-                            "state_id": 1,
-                            "description": "Opening",
-                            "guessed_frame": 100
-                        },
-                        {
-                            "state_id": 2,
-                            "description": "Closing",
-                            "guessed_frame": 200
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "video_filename": "03.mp4",
             "annotations": [
                 {
@@ -29,12 +9,12 @@
                         {
                             "state_id": 1,
                             "description": "Opening",
-                            "guessed_frame": 100
+                            "guessed_frame": 45
                         },
                         {
                             "state_id": 2,
                             "description": "Closing",
-                            "guessed_frame": 200
+                            "guessed_frame": 148
                         }
                     ]
                 }
@@ -49,12 +29,32 @@
                         {
                             "state_id": 1,
                             "description": "Opening",
-                            "guessed_frame": 100
+                            "guessed_frame": 1364
                         },
                         {
                             "state_id": 2,
                             "description": "Closing",
-                            "guessed_frame": 200
+                            "guessed_frame": 3057
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "video_filename": "01.mp4",
+            "annotations": [
+                {
+                    "object": "Door",
+                    "states": [
+                        {
+                            "state_id": 1,
+                            "description": "Opening",
+                            "guessed_frame": 111
+                        },
+                        {
+                            "state_id": 2,
+                            "description": "Closing",
+                            "guessed_frame": 347
                         }
                     ]
                 }

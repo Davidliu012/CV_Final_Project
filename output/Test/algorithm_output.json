@@ -1,0 +1,84 @@
+{
+    "videos": [
+        {
+            "video_filename": "03.mp4",
+            "annotations": [
+                {
+                    "object": "Door",
+                    "states": [
+                        {
+                            "state_id": 1,
+                            "description": "Opening",
+                            "guessed_frame": 56
+                        },
+                        {
+                            "state_id": 2,
+                            "description": "Closing",
+                            "guessed_frame": 275
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "video_filename": "01.mp4",
+            "annotations": [
+                {
+                    "object": "Door",
+                    "states": [
+                        {
+                            "state_id": 1,
+                            "description": "Opening",
+                            "guessed_frame": 85
+                        },
+                        {
+                            "state_id": 2,
+                            "description": "Closing",
+                            "guessed_frame": 188
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "video_filename": "05.mp4",
+            "annotations": [
+                {
+                    "object": "Door",
+                    "states": [
+                        {
+                            "state_id": 1,
+                            "description": "Opening",
+                            "guessed_frame": 1
+                        },
+                        {
+                            "state_id": 2,
+                            "description": "Closing",
+                            "guessed_frame": 426
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "video_filename": "07.mp4",
+            "annotations": [
+                {
+                    "object": "Door",
+                    "states": [
+                        {
+                            "state_id": 1,
+                            "description": "Opening",
+                            "guessed_frame": 78
+                        },
+                        {
+                            "state_id": 2,
+                            "description": "Closing",
+                            "guessed_frame": 186
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
