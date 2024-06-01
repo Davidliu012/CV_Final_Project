@@ -122,14 +122,14 @@ def door_opening_detected(img1, img2, motion_threshold=2.5, feature_params=None,
     p0 = np.array([kp.pt for kp in kp1], dtype=np.float32).reshape(-1, 1, 2)
 
     # Calculate optical flow
-    p1, st, err = cv2.calcOpticalFlowPyrLK(gray1, gray2, p0, None, **lk_params)
+    p1, status, error = cv2.calcOpticalFlowPyrLK(gray1, gray2, p0, None, **lk_params)
     
-    if p1 is None or st is None:
+    if p1 is None or status is None:
         return False
     
     # Select good points
-    good_new = p1[st == 1]
-    good_old = p0[st == 1]
+    good_new = p1[status == 1]
+    good_old = p0[status == 1]
     
     # Calculate movement
     motion = np.sqrt((good_new[:, 0] - good_old[:, 0]) ** 2 + (good_new[:, 1] - good_old[:, 1]) ** 2)
@@ -171,7 +171,7 @@ def guess_door_opening(video_filename):
             print("Door opening detected at frame:", frame_index)
             target_frame = frame_index
             folder, number = parseString(video_filename)
-            cv2.imwrite(f'output/{folder}/door_opening_frame_{number}.jpg', current_frame)
+            cv2.imwrite(f'output/{folder}/door_opening_frame_{number}_{target_frame}.jpg', current_frame)
             break
         
         previous_frame = current_frame
@@ -204,7 +204,7 @@ def guess_door_closing(video_filename):
             print("Door closing detected at frame:", frame_index)
             target_frame = frame_index
             folder, number = parseString(video_filename)
-            cv2.imwrite(f'output/{folder}/door_closing_frame_{number}.jpg', current_frame)
+            cv2.imwrite(f'output/{folder}/door_closing_frame_{number}_{target_frame}.jpg', current_frame)
             break
         
         previous_frame = current_frame
@@ -223,7 +223,7 @@ def scan_videos(directory):
     videos_info = []
 
     for video_file in video_files:
-        if video_file == "01.mp4":
+        # if video_file == "05.mp4":
             
             videos_info.append(
             {
