@@ -9,12 +9,12 @@
                         {
                             "state_id": 1,
                             "description": "Opening",
-                            "guessed_frame": 45
+                            "guessed_frame": 1
                         },
                         {
                             "state_id": 2,
                             "description": "Closing",
-                            "guessed_frame": 148
+                            "guessed_frame": 454
                         }
                     ]
                 }
@@ -29,7 +29,7 @@
                         {
                             "state_id": 1,
                             "description": "Opening",
-                            "guessed_frame": 1364
+                            "guessed_frame": 1333
                         },
                         {
                             "state_id": 2,
@@ -49,12 +49,12 @@
                         {
                             "state_id": 1,
                             "description": "Opening",
-                            "guessed_frame": 111
+                            "guessed_frame": 109
                         },
                         {
                             "state_id": 2,
                             "description": "Closing",
-                            "guessed_frame": 347
+                            "guessed_frame": 611
                         }
                     ]
                 }

@@ -9,12 +9,12 @@
                         {
                             "state_id": 1,
                             "description": "Opening",
-                            "guessed_frame": 232
+                            "guessed_frame": 64
                         },
                         {
                             "state_id": 2,
                             "description": "Closing",
-                            "guessed_frame": 491
+                            "guessed_frame": 565
                         }
                     ]
                 }
@@ -29,12 +29,12 @@
                         {
                             "state_id": 1,
                             "description": "Opening",
-                            "guessed_frame": 40
+                            "guessed_frame": 56
                         },
                         {
                             "state_id": 2,
                             "description": "Closing",
-                            "guessed_frame": 285
+                            "guessed_frame": 275
                         }
                     ]
                 }
@@ -49,12 +49,12 @@
                         {
                             "state_id": 1,
                             "description": "Opening",
-                            "guessed_frame": 80
+                            "guessed_frame": 85
                         },
                         {
                             "state_id": 2,
                             "description": "Closing",
-                            "guessed_frame": 266
+                            "guessed_frame": 195
                         }
                     ]
                 }
@@ -74,7 +74,7 @@
                         {
                             "state_id": 2,
                             "description": "Closing",
-                            "guessed_frame": 454
+                            "guessed_frame": 426
                         }
                     ]
                 }

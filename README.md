@@ -1,5 +1,19 @@
 # CV_Final_Project
 
+## Operations
+
+Running Sample Videos:
+
+```
+python algorithm_template.py --sample
+```
+
+Running Test Videos:
+```
+python algorithm_template.py --test
+```
+
+
 ## Sample Files for Door State Monitoring Algorithm Development
 
 ### Video Files

@@ -1,5 +1,6 @@
 import os
 import json
+import argparse
 import cv2
 import numpy as np
 from ultralytics import YOLO
@@ -26,7 +27,7 @@ def get_door_box(img):
     # with open("coco.names", "r") as f:
     #     classes = [line.strip() for line in f.readlines()]
     # door_box = detect_door(img, net, output_layers, classes)
-    model = YOLO('yolov8n.pt')
+    model = YOLO('yolov8_20epoch.pt')
     door_box = detect_door(img, model)
     if door_box is not None:
         # Save the detected door image
@@ -39,27 +40,30 @@ def get_door_box(img):
     
     return door_box
 
-def detect_door(img, model, confidence_threshold=0.78):
+def detect_door(img, model, confidence_threshold=0.6):
     """Detects door in an image using YOLOv8."""
     results = model(img)
     boxes = results[0].boxes.xyxy
+    # print("boxes: ", boxes)
     confidences = results[0].boxes.conf
     class_ids = results[0].boxes.cls
-    print(results[0])
+    # print("result: ", results[0])
     door_index = None
+    # print(model.names.items())
     for idx, name in model.names.items():
-        if name == 'door':
+        if name == 'bus-door':
             door_index = idx
             break
 
-    # if door_index is None:
-    #     print("Door class not found in the model.")
-    #     return None
+    if door_index is None:
+        print("Door class not found in the model.")
+        # return None
     
     # Iterate through detected objects
     for i, box in enumerate(boxes):
-        # if class_ids[i] == door_index and confidences[i] > confidence_threshold:
+        if class_ids[i] == door_index and confidences[i] >= confidence_threshold:
             x1, y1, x2, y2 = map(int, box)
+            print(f"Door detected at ({x1}, {y1}, {x2}, {y2}) with confidence {confidences[i]:.2f}")
             # Draw bounding box on the image
             cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv2.putText(img, f"door: {confidences[i]:.2f}", (x1, y1 - 10), 
@@ -67,47 +71,17 @@ def detect_door(img, model, confidence_threshold=0.78):
             cv2.imwrite('output/yolo.jpg', img)
             return (x1, y1, x2-x1, y2-y1)  # Return the first detected door box (x, y, w, h)
     
-    return None
-# def detect_door(img, net, output_layers, classes, confidence_threshold=0.5, nms_threshold=0.4):
-#     """Detects door in an image using YOLO."""
-#     height, width = img.shape[:2]
+    # return None
+    h, w, c = img.shape
+    cv2.rectangle(img, (0, 0), (w, h), (0, 255, 0), 2)
     
-#     # Create a blob from the image
-#     blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
-#     net.setInput(blob)
-#     outs = net.forward(output_layers)
+    # Place the text at the top-left corner within the image bounds
+    cv2.putText(img, "No door", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
     
-#     # Initialize lists for detected bounding boxes, confidences, and class IDs
-#     boxes = []
-#     confidences = []
-#     class_ids = []
+    cv2.imwrite('output/yolo.jpg', img)
+    return (0, 0, w, h)
     
-#     for out in outs:
-#         for detection in out:
-#             scores = detection[5:]
-#             class_id = np.argmax(scores)
-#             confidence = scores[class_id]
-#             if confidence > confidence_threshold and classes[class_id] == 'door':
-#                 center_x = int(detection[0] * width)
-#                 center_y = int(detection[1] * height)
-#                 w = int(detection[2] * width)
-#                 h = int(detection[3] * height)
-#                 x = int(center_x - w / 2)
-#                 y = int(center_y - h / 2)
-#                 boxes.append([x, y, w, h])
-#                 confidences.append(float(confidence))
-#                 class_ids.append(class_id)
-    
-#     # Apply non-maxima suppression to remove multiple boxes for the same object
-#     indices = cv2.dnn.NMSBoxes(boxes, confidences, confidence_threshold, nms_threshold)
-    
-#     if len(indices) > 0:
-#         box = boxes[indices[0][0]]
-#         return box  # Return the first detected door box (x, y, w, h)
-#     else:
-#         return None
-    
-def door_opening_detected(img1, img2, motion_threshold=2.0, feature_params=None, lk_params=None):
+def door_opening_detected(img1, img2, motion_threshold=2.5, feature_params=None, lk_params=None):
     """Detects door opening based on optical flow between two frames."""
     if feature_params is None:
         feature_params = dict(maxCorners=200, qualityLevel=0.01, minDistance=7, blockSize=10)
@@ -125,13 +99,27 @@ def door_opening_detected(img1, img2, motion_threshold=2.0, feature_params=None,
     # Convert images to grayscale
     gray1 = cv2.cvtColor(roi1, cv2.COLOR_BGR2GRAY)
     gray2 = cv2.cvtColor(roi2, cv2.COLOR_BGR2GRAY)
-  
     
-    # Detect good features to track
-    p0 = cv2.goodFeaturesToTrack(gray1, mask=None, **feature_params)
+    # gray1 = roi1
+    # gray2 = roi2
     
-    if p0 is None:
+    # # Detect good features to track
+    # p0 = cv2.goodFeaturesToTrack(gray1, mask=None, **feature_params)
+    
+    # if p0 is None:
+    #     return False
+    
+    # Initialize SIFT detector
+    sift = cv2.SIFT_create()
+    
+    # Detect keypoints and compute descriptors
+    kp1, des1 = sift.detectAndCompute(gray1, None)
+    
+    if len(kp1) == 0:
         return False
+    
+    # Convert keypoints to points
+    p0 = np.array([kp.pt for kp in kp1], dtype=np.float32).reshape(-1, 1, 2)
 
     # Calculate optical flow
     p1, st, err = cv2.calcOpticalFlowPyrLK(gray1, gray2, p0, None, **lk_params)
@@ -147,6 +135,18 @@ def door_opening_detected(img1, img2, motion_threshold=2.0, feature_params=None,
     motion = np.sqrt((good_new[:, 0] - good_old[:, 0]) ** 2 + (good_new[:, 1] - good_old[:, 1]) ** 2)
     mean_motion = np.mean(motion)
     
+    # Visualize the keypoints and motion vectors
+    for i, (new, old) in enumerate(zip(good_new, good_old)):
+            a, b = new.ravel()
+            c, d = old.ravel()
+            a, b, c, d = int(a), int(b), int(c), int(d)  # Convert coordinates to integers
+            roi1 = cv2.circle(roi1, (a, b), 5, (0, 255, 0), -1)
+            roi1 = cv2.line(roi1, (a, b), (c, d), (255, 0, 0), 2)
+        
+    # Place the ROI back into the original image
+    img1[y:y+h, x:x+w] = roi1
+    cv2.imwrite('output/keypoints.jpg', img1)
+    
     # Detect if the motion exceeds the threshold
     if mean_motion > motion_threshold:
         return True
@@ -158,7 +158,7 @@ def guess_door_opening(video_filename):
     # Hypothetical function: replace with actual logic.
     cap = cv2.VideoCapture(video_filename)
     fps = cv2.VideoCapture.get(cap, cv2.CAP_PROP_FPS)
-    print(fps)
+    # print(fps)
     frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     target_frame = -1
     ret, previous_frame = cap.read()
@@ -175,6 +175,8 @@ def guess_door_opening(video_filename):
             break
         
         previous_frame = current_frame
+        print(f"Opening Frame {frame_index}/{frame_count} processed.")
+        print(f"Opening Frame detected at frame:", target_frame)
 
     cap.release()
     return target_frame
@@ -206,6 +208,10 @@ def guess_door_closing(video_filename):
             break
         
         previous_frame = current_frame
+        
+        previous_frame = current_frame
+        print(f"Closing Frame {frame_index}/{frame_count} processed.")
+        print(f"Closing Frame detected at frame:", target_frame)
 
     cap.release()
     return target_frame
@@ -217,9 +223,9 @@ def scan_videos(directory):
     videos_info = []
 
     for video_file in video_files:
-        if video_file == "09.mp4":
-            continue
-        videos_info.append(
+        if video_file == "01.mp4":
+            
+            videos_info.append(
             {
                 "video_filename": video_file,
                 "annotations": [
@@ -260,11 +266,20 @@ def generate_json(output_filename, videos_info):
 
 
 def main():
-    directory = "./Test Videos"  # Specify the directory to scan
-    if(directory == "./Sample Videos"):
-        output_filename = "output/Sample/algorithm_output.json"  # Output JSON file name
-    elif(directory == "./Test Videos"):
-        output_filename = "output/Test/algorithm_output.json"  # Output JSON file name
+    parser = argparse.ArgumentParser(description='Process video directories.')
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('--sample', action='store_true', help='Use the Sample Videos directory')
+    group.add_argument('--test', action='store_true', help='Use the Test Videos directory')
+
+    args = parser.parse_args()
+
+    if args.sample:
+        directory = "./Sample Videos"
+        output_filename = "output/Sample/algorithm_output.json"
+    elif args.test:
+        directory = "./Test Videos"
+        output_filename = "output/Test/algorithm_output.json"
+        
     videos_info = scan_videos(directory)
     generate_json(output_filename, videos_info)
     print(f"Generated JSON file '{output_filename}' with video annotations.")
