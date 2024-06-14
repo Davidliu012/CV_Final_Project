@@ -2,10 +2,23 @@
 
 ## Operations
 
-Running Sample Videos:
+Using New Environment
+```
+conda create -n myproject python=3.10.6
+```
 
 ```
-python algorithm_template.py --sample
+conda activate myproject
+```
+
+In the correct path: B11901174/Source Code
+```
+cd Source Code
+```
+
+Install Environment Variables
+```
+pip install -r requirements.txt
 ```
 
 Running Test Videos:
@@ -13,14 +26,33 @@ Running Test Videos:
 python algorithm_template.py --test
 ```
 
+Running Sample Videos:
+
+```
+python algorithm_template.py --sample
+```
+
+The output would be in the path:
+```
+output/Test Videos/algorithm_output.json
+```
+### Note: We have done some minor modifications to more fit all the cases, so there may be some minor difference compared to our submissions
 
 ## Sample Files for Door State Monitoring Algorithm Development
 
-### Video Files
+### Sample Video Files
 
 - `01.mp4`
 - `02.mp4`
 - `03.mp4`
+
+### Test Video Files
+
+- `01.mp4`
+- `03.mp4`
+- `05.mp4`
+- `07.mp4`
+- `09.mp4`
 
 These video files are provided for use in developing and testing your door state monitoring algorithm.
 

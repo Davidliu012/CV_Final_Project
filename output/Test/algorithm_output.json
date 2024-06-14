@@ -1,7 +1,7 @@
 {
     "videos": [
         {
-            "video_filename": "09.mp4",
+            "video_filename": "11.mp4",
             "annotations": [
                 {
                     "object": "Door",
@@ -9,92 +9,12 @@
                         {
                             "state_id": 1,
                             "description": "Opening",
-                            "guessed_frame": 66
+                            "guessed_frame": 225
                         },
                         {
                             "state_id": 2,
                             "description": "Closing",
-                            "guessed_frame": 564
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "video_filename": "03.mp4",
-            "annotations": [
-                {
-                    "object": "Door",
-                    "states": [
-                        {
-                            "state_id": 1,
-                            "description": "Opening",
-                            "guessed_frame": 65
-                        },
-                        {
-                            "state_id": 2,
-                            "description": "Closing",
-                            "guessed_frame": 269
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "video_filename": "01.mp4",
-            "annotations": [
-                {
-                    "object": "Door",
-                    "states": [
-                        {
-                            "state_id": 1,
-                            "description": "Opening",
-                            "guessed_frame": 81
-                        },
-                        {
-                            "state_id": 2,
-                            "description": "Closing",
-                            "guessed_frame": 195
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "video_filename": "05.mp4",
-            "annotations": [
-                {
-                    "object": "Door",
-                    "states": [
-                        {
-                            "state_id": 1,
-                            "description": "Opening",
-                            "guessed_frame": 106
-                        },
-                        {
-                            "state_id": 2,
-                            "description": "Closing",
-                            "guessed_frame": 364
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "video_filename": "07.mp4",
-            "annotations": [
-                {
-                    "object": "Door",
-                    "states": [
-                        {
-                            "state_id": 1,
-                            "description": "Opening",
-                            "guessed_frame": 77
-                        },
-                        {
-                            "state_id": 2,
-                            "description": "Closing",
-                            "guessed_frame": 189
+                            "guessed_frame": 607
                         }
                     ]
                 }

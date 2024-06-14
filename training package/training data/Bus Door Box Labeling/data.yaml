@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['bus-door']
+
+roboflow:
+  workspace: bus-door-labeling-thjz4
+  project: bus-door-labeling
+  version: 4
+  license: Private
+  url: https://app.roboflow.com/bus-door-labeling-thjz4/bus-door-labeling/4
